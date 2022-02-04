@@ -8,7 +8,7 @@
   function onNativeMessage(json) {
     console.log(json);
     var elem = document.getElementById('received-message');
-    elem.textContent = json;
+    elem.textContent = JSON.stringify(json);
   }
   
 </script>
@@ -18,7 +18,8 @@
   <input type="button" value="送信" onclick="sendMessage();"/> 
   <br/>
   <br/>
-  Received: <div id="received-message"></div>
+  Received:
+  <div id="received-message"></div>
   <br/>
   <br/>
 </body>
