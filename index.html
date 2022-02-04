@@ -5,7 +5,7 @@
     webkit.messageHandlers.native.postMessage(textInput.value);
   }
   
-  onNativeMessage(json) {
+  function onNativeMessage(json) {
     console.log(json);
     var elem = document.getElementById('received-message');
     elem.textContent = json;
