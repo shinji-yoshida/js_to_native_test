@@ -1,0 +1,25 @@
+<html>
+<script type="text/javascript">
+  function sendMessage() {
+    var textInput = document.getElementById('message-text');
+    webkit.messageHandlers.native.postMessage(textInput.value);
+  }
+  
+  onNativeMessage(json) {
+    console.log(json);
+    var elem = document.getElementById('received-message');
+    elem.textContent = json;
+  }
+  
+</script>
+<body>
+  <br/>
+  Message: <input type="text" id="message-text" value="message" /> 
+  <input type="button" value="送信" onclick="sendMessage();"/> 
+  <br/>
+  <br/>
+  Received: <div id="received-message"></div>
+  <br/>
+  <br/>
+</body>
+</html>
