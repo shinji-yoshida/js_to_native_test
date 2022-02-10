@@ -12,15 +12,19 @@
   }
   
 </script>
-<body style="mask-image: url(iconmonstr-square-1.svg);">
+<body>
   <br/>
-  Message: <input type="text" id="message-text" value="message" /> 
-  <input type="button" value="送信" onclick="sendMessage();"/> 
+  <div style="background-color:lightgoldenrodyellow;">
+    Message: <input type="text" id="message-text" value="message" /> 
+    <input type="button" value="送信" onclick="sendMessage();"/> 
+  </div>
   <br/>
   <br/>
-  Received:
-  <div id="received-message"></div>
-  <br/>
+   <div style="background-color:lightgoldenrodyellow;">
+    Received:
+    <div id="received-message"></div>
+    <br/>
+  </div>
   <br/>
   <iframe src="https://zen-euclid-6671d3.netlify.app/"
             title="iframe" width="400" height="300">
