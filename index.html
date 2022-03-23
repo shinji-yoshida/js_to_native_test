@@ -11,12 +11,33 @@
     elem.textContent = JSON.stringify(json);
   }
   
+  function sendViewOpenMessage() {
+    var message = {
+       "messageType":"viewOpen",
+       "viewOpen":{
+          "content":{
+             "placeId":1
+          },
+          "view":{
+             "left":0.1,
+             "right":0.9,
+             "top":0.1,
+             "bottom":0.9
+          }
+       }
+    };
+    webkit.messageHandlers.native.postMessage(JSON.stringify(message));
+  }
+  
 </script>
 <body>
   <br/>
   <div style="background-color:lightgoldenrodyellow;">
     Message: <input type="text" id="message-text" value="message" /> 
     <input type="button" value="送信" onclick="sendMessage();"/> 
+  </div>
+  <div>
+    <input type="button" value="viewOpen message" onclick="sendViewOpenMessage();"/> 
   </div>
   <br/>
   <br/>
