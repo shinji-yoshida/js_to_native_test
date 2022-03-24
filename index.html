@@ -16,10 +16,10 @@
   }
   
   function sendViewOpenMessage() {
-    var left = getInputFloat('view-left');
-    var right = getInputFloat('view-right');
-    var top = getInputFloat('view-top');
-    var bottom = getInputFloat('view-bottom');
+    var left = getInputNumber('view-left');
+    var right = getInputNumber('view-right');
+    var top = getInputNumber('view-top');
+    var bottom = getInputNumber('view-bottom');
     var message = {
        "messageType":"viewOpen",
        "viewOpen":{
