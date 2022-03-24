@@ -11,7 +11,16 @@
     elem.textContent = JSON.stringify(json);
   }
   
+  function getInputFloat(id) {
+    var elem = document.getElementById(id);
+    return parseFloat(elem.textContent);
+  }
+  
   function sendViewOpenMessage() {
+    var left = getInputFloat('view-left');
+    var right = getInputFloat('view-right');
+    var top = getInputFloat('view-top');
+    var bottom = getInputFloat('view-bottom');
     var message = {
        "messageType":"viewOpen",
        "viewOpen":{
@@ -19,10 +28,10 @@
              "placeId":1
           },
           "view":{
-             "left":0.1,
-             "right":0.9,
-             "top":0.1,
-             "bottom":0.9
+             "left":left,
+             "right":right,
+             "top":top,
+             "bottom":bottom
           }
        }
     };
@@ -37,6 +46,10 @@
     <input type="button" value="送信" onclick="sendMessage();"/> 
   </div>
   <div>
+    left: <input type="number" id="view-left" value="0.4" min="0" max="1" />
+    right: <input type="number" id="view-right" value="0.6" min="0" max="1" />
+    top: <input type="number" id="view-top" value="0.4" min="0" max="1" />
+    bottom: <input type="number" id="view-bottom" value="0.6" min="0" max="1" />
     <input type="button" value="viewOpen message" onclick="sendViewOpenMessage();"/> 
   </div>
   <br/>
