@@ -11,9 +11,8 @@
     elem.textContent = JSON.stringify(json);
   }
   
-  function getInputFloat(id) {
-    var elem = document.getElementById(id);
-    return parseFloat(elem.textContent);
+  function getInputNumber(id) {
+    return document.getElementById(id).valueAsNumber;
   }
   
   function sendViewOpenMessage() {
