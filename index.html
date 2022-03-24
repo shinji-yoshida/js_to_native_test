@@ -1,4 +1,11 @@
 <html>
+
+  <style>
+    .input-number {
+      width: 60px;
+    }
+  </style>
+  
 <script type="text/javascript">
   
   function onNativeMessage(json) {
@@ -37,10 +44,10 @@
 <body>
   <br/>
   <div>
-    left: <input type="number" id="view-left" value="0.4" min="0" max="1" />
-    right: <input type="number" id="view-right" value="0.6" min="0" max="1" />
-    top: <input type="number" id="view-top" value="0.4" min="0" max="1" />
-    bottom: <input type="number" id="view-bottom" value="0.6" min="0" max="1" />
+    left: <input type="number" id="view-left" value="0.4" min="0" max="1" class="input-number" />
+    right: <input type="number" id="view-right" value="0.6" min="0" max="1" class="input-number" />
+    top: <input type="number" id="view-top" value="0.4" min="0" max="1" class="input-number" />
+    bottom: <input type="number" id="view-bottom" value="0.6" min="0" max="1" class="input-number" />
     <input type="button" value="viewOpen message" onclick="sendViewOpenMessage();"/> 
   </div>
   <br/>
