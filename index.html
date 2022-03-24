@@ -1,9 +1,5 @@
 <html>
 <script type="text/javascript">
-  function sendMessage() {
-    var textInput = document.getElementById('message-text');
-    webkit.messageHandlers.native.postMessage(textInput.value);
-  }
   
   function onNativeMessage(json) {
     console.log(json);
@@ -40,10 +36,6 @@
 </script>
 <body>
   <br/>
-  <div style="background-color:lightgoldenrodyellow;">
-    Message: <input type="text" id="message-text" value="message" /> 
-    <input type="button" value="送信" onclick="sendMessage();"/> 
-  </div>
   <div>
     left: <input type="number" id="view-left" value="0.4" min="0" max="1" />
     right: <input type="number" id="view-right" value="0.6" min="0" max="1" />
@@ -59,8 +51,5 @@
     <br/>
   </div>
   <br/>
-  <iframe src="https://zen-euclid-6671d3.netlify.app/"
-            title="iframe" width="400" height="300">
-  </iframe>
 </body>
 </html>
