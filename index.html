@@ -48,8 +48,8 @@
        "messageType":"placeChanged",
        "placeChanged":{
          "placeId":placeId,
-         "pointId":pointId,
-         "itemId":itemId
+         "pointId":pointId < 0 ? null : pointId,
+         "itemId":itemId < 0 ? null : itemId
        }
     };
     webkit.messageHandlers.native.postMessage(JSON.stringify(message));
