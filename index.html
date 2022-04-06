@@ -40,6 +40,21 @@
     webkit.messageHandlers.native.postMessage(JSON.stringify(message));
   }
   
+  function sendPlaceChangedMessage() {
+    var placeId = getInputNumber('place-id');
+    var pointId = getInputNumber('point-id');
+    var itemId = getInputNumber('item-id');
+    var message = {
+       "messageType":"placeChanged",
+       "placeChanged":{
+         "placeId":placeId,
+         "pointId":pointId,
+         "itemId":itemId
+       }
+    };
+    webkit.messageHandlers.native.postMessage(JSON.stringify(message));
+  }
+  
 </script>
 <body>
   <br/>
@@ -51,6 +66,12 @@
     <input type="button" value="viewOpen message" onclick="sendViewOpenMessage();"/> 
   </div>
   <br/>
+  <div>
+    place id: <input type="number" id="place-id" value="870177" class="input-number" />
+    point id: <input type="number" id="point-id" value="67820" class="input-number" />
+    item id: <input type="number" id="item-id" value="-1" class="input-number" />
+    <input type="button" value="placeChanged message" onclick="sendPlaceChangedMessage();"/> 
+  </div>
   <br/>
    <div style="background-color:lightgoldenrodyellow;">
     Received:
