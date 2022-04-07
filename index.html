@@ -24,12 +24,9 @@
     var top = getInputNumber('view-top');
     var bottom = getInputNumber('view-bottom');
     var message = {
-       "messageType":"viewOpen",
-       "viewOpen":{
-          "content":{
-             "placeId":1
-          },
-          "view":{
+       "unityView":{
+          "visible":true,
+          "rect":{
              "left":left,
              "right":right,
              "top":top,
@@ -50,6 +47,24 @@
          "placeId":placeId,
          "pointId":pointId < 0 ? null : pointId,
          "itemId":itemId < 0 ? null : itemId
+       },
+       "unityView":{
+         "visible":true,
+         "rect":{
+           "left":left,
+           "right":right,
+           "top":top,
+           "bottom":bottom
+         }
+       }
+    };
+    webkit.messageHandlers.native.postMessage(JSON.stringify(message));
+  }
+  
+  function sendCloseViewMessage() {
+    var message = {
+       "unityView":{
+         "visible":false
        }
     };
     webkit.messageHandlers.native.postMessage(JSON.stringify(message));
@@ -71,6 +86,9 @@
     point id: <input type="number" id="point-id" value="67820" class="input-number" />
     item id: <input type="number" id="item-id" value="-1" class="input-number" />
     <input type="button" value="placeChanged message" onclick="sendPlaceChangedMessage();"/> 
+  </div>
+  <div>
+    <input type="button" value="close view message" onclick="sendCloseViewMessage();"/> 
   </div>
   <br/>
    <div style="background-color:lightgoldenrodyellow;">
