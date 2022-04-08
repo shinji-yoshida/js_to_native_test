@@ -4,6 +4,9 @@
     .input-number {
       width: 60px;
     }
+    .input-text {
+      width: 120px;
+    }
   </style>
   
 <script type="text/javascript">
@@ -16,6 +19,20 @@
   
   function getInputNumber(id) {
     return document.getElementById(id).valueAsNumber;
+  }
+  
+  function getInputText(id) {
+    return document.getElementById(id).value;
+  }
+  
+  function sendInitMessage() {
+    var apiServer = getInputText('api-server');
+    var message = {
+       "init":{
+          "apiServer":apiServer
+       }
+    };
+    webkit.messageHandlers.native.postMessage(JSON.stringify(message));
   }
   
   function sendViewOpenMessage() {
@@ -76,6 +93,11 @@
   
 </script>
 <body>
+  <br/>
+  <div>
+    api server: <input type="text" id="api-server" value="https://rent.nurvecloud.com/api/v2/" class="input-text" />
+    <input type="button" value="init message" onclick="sendInitMessage();"/> 
+  </div>
   <br/>
   <div>
     left: <input type="number" id="view-left" value="0.4" min="0" max="1" class="input-number" />
