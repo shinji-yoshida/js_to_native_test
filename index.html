@@ -78,8 +78,8 @@
          "itemId":itemId < 0 ? null : itemId,
          "video":{
            "action":videoAction ? 'PLAYING' : 'PAUSED',
-           "seekMs":seek,
-           "speed":speed
+           "seekMs":seek < 0 ? null : seek,
+           "speed":speed <= 0 ? null : speed
          }
        },
        "unityView":{
@@ -124,9 +124,9 @@
     place id: <input type="number" id="place-id" value="870177" class="input-number" />
     point id: <input type="number" id="point-id" value="67820" class="input-number" />
     item id: <input type="number" id="item-id" value="-1" class="input-number" />
-    item id: <input type="checkbox" id="video-action" /><label>play</label>
-    item id: <input type="number" id="video-seek-msec" value="" class="input-number" />
-    item id: <input type="number" id="video-speed" value="" class="input-number" />
+    <span><input type="checkbox" id="video-action" /><label>play</label></span>
+    seek: <input type="number" id="video-seek-msec" value="0" class="input-number" />
+    speed: <input type="number" id="video-speed" value="-1" class="input-number" />
     <input type="button" value="placeChanged message" onclick="sendPlaceChangedMessage();"/> 
   </div>
   <div>
