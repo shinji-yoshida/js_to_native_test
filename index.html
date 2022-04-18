@@ -25,6 +25,10 @@
     return document.getElementById(id).value;
   }
   
+  function getInputCheck(id) {
+    return document.getElementById(id).checked;
+  }
+  
   function sendInitMessage() {
     var apiServer = getInputText('api-server');
     var message = {
@@ -63,12 +67,20 @@
     var right = getInputNumber('view-right');
     var top = getInputNumber('view-top');
     var bottom = getInputNumber('view-bottom');
+    var videoAction = getInputCheck('video-action');
+    var seek = getInputNumber('video-seek-msec');
+    var speed = getInputNumber('video-speed');
     var message = {
        "messageType":"placeChanged",
        "placeChanged":{
          "placeId":placeId,
          "pointId":pointId < 0 ? null : pointId,
-         "itemId":itemId < 0 ? null : itemId
+         "itemId":itemId < 0 ? null : itemId,
+         "video":{
+           "action":videoAction ? 'PLAYING' : 'PAUSED',
+           "seekMs":seek,
+           "speed":speed
+         }
        },
        "unityView":{
          "visible":true,
@@ -112,6 +124,9 @@
     place id: <input type="number" id="place-id" value="870177" class="input-number" />
     point id: <input type="number" id="point-id" value="67820" class="input-number" />
     item id: <input type="number" id="item-id" value="-1" class="input-number" />
+    item id: <input type="checkbox" id="video-action" /><label>play</label>
+    item id: <input type="number" id="video-seek-msec" value="" class="input-number" />
+    item id: <input type="number" id="video-speed" value="" class="input-number" />
     <input type="button" value="placeChanged message" onclick="sendPlaceChangedMessage();"/> 
   </div>
   <div>
