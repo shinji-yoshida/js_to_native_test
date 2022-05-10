@@ -15,6 +15,11 @@
     console.log(json);
     var elem = document.getElementById('received-message');
     elem.textContent = JSON.stringify(json);
+    
+    if(json.messageType == "setting"){
+      var settingElem = document.getElementById('received-setting-message');
+      elem.textContent = JSON.stringify(json);
+    }
   }
   
   function getInputNumber(id) {
@@ -105,18 +110,26 @@
   }
   
   function sendGyroModeMessage() {
-    sendChangeSettingMessage("cameraType", "monoGyro");
+    sendSettingMessage("changeValue", "cameraType", "monoGyro");
   }
   
   function sendSwipeModeMessage() {
-    sendChangeSettingMessage("cameraType", "swipe");
+    sendSettingMessage("changeValue", "cameraType", "swipe");
   }
   
-  function sendChangeSettingMessage(key, value) {
+  function sendGetDeviceOrientationMessage() {
+    sendSettingMessage("queryValue", "deviceOrientation", null);
+  }
+  
+  function sendGetScreenOrientationMessage() {
+    sendSettingMessage("queryValue", "screenOrientation", null);
+  }
+  
+  function sendSettingMessage(action, key, value) {
     var message = {
        "messageType":"setting",
        "setting":{
-         "action":"changeValue",
+         "action":action,
          "key":key,
          "value":value
        }
@@ -154,12 +167,20 @@
     <input type="button" value="swipe mode" onclick="sendSwipeModeMessage();"/> 
   </div>
   <div>
+    <input type="button" value="get device orientation" onclick="sendGetDeviceOrientationMessage();"/> 
+    <input type="button" value="get screen orientation" onclick="sendGetScreenOrientationMessage();"/> 
+  </div>
+  <div>
     <input type="button" value="close view message" onclick="sendCloseViewMessage();"/> 
   </div>
   <br/>
    <div style="background-color:lightgoldenrodyellow;">
     Received:
     <div id="received-message"></div>
+    <br/>
+   <div style="background-color:lightgoldenrodyellow;">
+    Received:
+    <div id="received-setting-message"></div>
     <br/>
   </div>
   <br/>
