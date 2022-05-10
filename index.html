@@ -104,6 +104,26 @@
     webkit.messageHandlers.native.postMessage(JSON.stringify(message));
   }
   
+  function sendGyroModeMessage() {
+    sendChangeSettingMessage("cameraType", "monoGyro");
+  }
+  
+  function sendSwipeModeMessage() {
+    sendChangeSettingMessage("cameraType", "swipe");
+  }
+  
+  function sendChangeSettingMessage(key, value) {
+    var message = {
+       "messageType":"setting",
+       "setting":{
+         "action":"changeValue",
+         "key":key,
+         "value":value
+       }
+    };
+    webkit.messageHandlers.native.postMessage(JSON.stringify(message));
+  }
+  
 </script>
 <body>
   <br/>
@@ -128,6 +148,10 @@
     seek: <input type="number" id="video-seek-msec" value="0" class="input-number" />
     speed: <input type="number" id="video-speed" value="-1" class="input-number" />
     <input type="button" value="placeChanged message" onclick="sendPlaceChangedMessage();"/> 
+  </div>
+  <div>
+    <input type="button" value="gyro mode" onclick="sendGyroModeMessage();"/> 
+    <input type="button" value="swipe mode" onclick="sendSwipeModeMessage();"/> 
   </div>
   <div>
     <input type="button" value="close view message" onclick="sendCloseViewMessage();"/> 
