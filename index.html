@@ -109,20 +109,20 @@
     webkit.messageHandlers.native.postMessage(JSON.stringify(message));
   }
   
-  function sendGyroModeMessage() {
-    sendSettingMessage("changeValue", "cameraType", "monoGyro");
+//   function sendGyroModeMessage() {
+//     sendSettingMessage("changeValue", "cameraType", "monoGyro");
+//   }
+  
+  function sendQueryDiskUsage() {
+    sendSettingMessage("queryValue", "diskUsage", null);
   }
   
-  function sendSwipeModeMessage() {
-    sendSettingMessage("changeValue", "cameraType", "swipe");
+  function sendQueryReservedDiskSpaceMb() {
+    sendSettingMessage("queryValue", "reservedDiskSpaceMb", null);
   }
   
-  function sendGetDeviceOrientationMessage() {
-    sendSettingMessage("queryValue", "deviceOrientation", null);
-  }
-  
-  function sendGetScreenOrientationMessage() {
-    sendSettingMessage("queryValue", "screenOrientation", null);
+  function sendSetReservedDiskSpaceMb() {
+    sendSettingMessage("changeValue", "reservedDiskSpaceMb", getInputNumber("reserved-disk-space-mb"));
   }
   
   function sendSettingMessage(action, key, value) {
@@ -146,29 +146,12 @@
   </div>
   <br/>
   <div>
-    left: <input type="number" id="view-left" value="0.4" min="0" max="1" class="input-number" />
-    right: <input type="number" id="view-right" value="0.6" min="0" max="1" class="input-number" />
-    top: <input type="number" id="view-top" value="0.4" min="0" max="1" class="input-number" />
-    bottom: <input type="number" id="view-bottom" value="0.6" min="0" max="1" class="input-number" />
-    <input type="button" value="viewOpen message" onclick="sendViewOpenMessage();"/> 
-  </div>
-  <br/>
-  <div>
-    place id: <input type="number" id="place-id" value="870177" class="input-number" />
-    point id: <input type="number" id="point-id" value="67820" class="input-number" />
-    item id: <input type="number" id="item-id" value="-1" class="input-number" />
-    <span><input type="checkbox" id="video-action" /><label>play</label></span>
-    seek: <input type="number" id="video-seek-msec" value="0" class="input-number" />
-    speed: <input type="number" id="video-speed" value="-1" class="input-number" />
-    <input type="button" value="placeChanged message" onclick="sendPlaceChangedMessage();"/> 
+    <input type"button" value="get disk usage" onclick="sendQueryDiskUsage()"/>
+        <input type"button" value="get reserved disk space MB" onclick="sendQueryReservedDiskSpaceMb()"/>
   </div>
   <div>
-    <input type="button" value="gyro mode" onclick="sendGyroModeMessage();"/> 
-    <input type="button" value="swipe mode" onclick="sendSwipeModeMessage();"/> 
-  </div>
-  <div>
-    <input type="button" value="get device orientation" onclick="sendGetDeviceOrientationMessage();"/> 
-    <input type="button" value="get screen orientation" onclick="sendGetScreenOrientationMessage();"/> 
+    <input type="number" id="reserved-disk-space-mb" value="0.4" min="0" max="1" class="input-number" /> MB
+    <input type="button" value="set reserved disk space MB" onclick="sendSetReservedDiskSpaceMb();"/> 
   </div>
   <div>
     <input type="button" value="close view message" onclick="sendCloseViewMessage();"/> 
