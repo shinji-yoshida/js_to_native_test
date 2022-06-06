@@ -106,7 +106,11 @@
          "visible":false
        }
     };
-    webkit.messageHandlers.native.postMessage(JSON.stringify(message));
+    sendMessageToNative(message);
+  }
+  
+  function sendMessageToNative(obj) {
+    webkit.messageHandlers.native.postMessage(JSON.stringify(obj));
   }
   
 //   function sendGyroModeMessage() {
@@ -114,7 +118,7 @@
 //   }
   
   function sendQueryDiskUsage() {
-    sendSettingMessage("queryValue", "diskUsage", null);
+    sendMessageToNative({"messageType": "diskUsage"});
   }
   
   function sendQueryReservedDiskSpaceMb() {
