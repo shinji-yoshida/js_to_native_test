@@ -45,25 +45,6 @@
     webkit.messageHandlers.native.postMessage(JSON.stringify(message));
   }
   
-  function sendViewOpenMessage() {
-    var left = getInputNumber('view-left');
-    var right = getInputNumber('view-right');
-    var top = getInputNumber('view-top');
-    var bottom = getInputNumber('view-bottom');
-    var message = {
-       "unityView":{
-          "visible":true,
-          "rect":{
-             "left":left,
-             "right":right,
-             "top":top,
-             "bottom":bottom
-          }
-       }
-    };
-    webkit.messageHandlers.native.postMessage(JSON.stringify(message));
-  }
-  
   function sendPlaceChangedMessage() {
     var placeId = getInputNumber('place-id');
     var pointId = getInputNumber('point-id');
@@ -109,13 +90,21 @@
     sendMessageToNative(message);
   }
   
+  function getTotalDownloadSize() {
+    var placeIds = getInputText('download-place-ids').split(",").map(str => parseInt(str));
+    var quality = document.getElementById('quality').value;
+    sendMessageToNative({
+      messageType: "totalDownloadSizeQuery",
+      totalDownloadSizeQuery: {
+        quality: quality,
+        placeIds: placeIds
+      }
+    });
+  }
+  
   function sendMessageToNative(obj) {
     webkit.messageHandlers.native.postMessage(JSON.stringify(obj));
   }
-  
-//   function sendGyroModeMessage() {
-//     sendSettingMessage("changeValue", "cameraType", "monoGyro");
-//   }
   
   function sendQueryDiskUsage() {
     sendMessageToNative({"messageType": "diskUsage"});
@@ -151,14 +140,23 @@
   <br/>
   <div>
     <input type="button" value="get disk usage" onclick="sendQueryDiskUsage()"/>
-        <input type="button" value="get reserved disk space MB" onclick="sendQueryReservedDiskSpaceMb()"/>
+  </div>
+  <div>
+    <input type="button" value="get reserved disk space MB" onclick="sendQueryReservedDiskSpaceMb()"/>
   </div>
   <div>
     <input type="number" id="reserved-disk-space-mb" value="1024" min="0" class="input-number" /> MB
     <input type="button" value="set reserved disk space MB" onclick="sendSetReservedDiskSpaceMb();"/> 
   </div>
   <div>
-    <input type="button" value="close view message" onclick="sendCloseViewMessage();"/> 
+    place ids: <input type="text" id="download-place-ids" value="870262,870177,859111" class="input-text" />
+    <select name="quality" id="quality">
+      <option value="original">original</option>
+      <option value="high">high</option>
+      <option value="middle">middle</option>
+      <option value="low">low</option>
+    </select>
+    <input type="button" value="get total download size" onclick="getTotalDownloadSize();"/> 
   </div>
   <br/>
    <div style="background-color:lightgoldenrodyellow;">
