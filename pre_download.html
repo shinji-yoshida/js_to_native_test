@@ -1,0 +1,186 @@
+<html>
+
+  <style>
+    .input-number {
+      width: 60px;
+    }
+    .input-text {
+      width: 240px;
+    }
+  </style>
+  
+<script type="text/javascript">
+  
+  function onNativeMessage(json) {
+    console.log(json);
+    var elem = document.getElementById('received-message');
+    elem.textContent = JSON.stringify(json);
+    
+    if(json.messageType == "setting"){
+      var settingElem = document.getElementById('received-setting-message');
+      elem.textContent = JSON.stringify(json);
+    }
+  }
+  
+  function getInputNumber(id) {
+    return document.getElementById(id).valueAsNumber;
+  }
+  
+  function getInputText(id) {
+    return document.getElementById(id).value;
+  }
+  
+  function getInputCheck(id) {
+    return document.getElementById(id).checked;
+  }
+  
+  function sendInitMessage() {
+    var apiServer = getInputText('api-server');
+    var message = {
+       "messageType":"init",
+       "init":{
+          "apiServer":apiServer
+       }
+    };
+    webkit.messageHandlers.native.postMessage(JSON.stringify(message));
+  }
+  
+  function sendPlaceChangedMessage() {
+    var placeId = getInputNumber('place-id');
+    var pointId = getInputNumber('point-id');
+    var itemId = getInputNumber('item-id');
+    var left = getInputNumber('view-left');
+    var right = getInputNumber('view-right');
+    var top = getInputNumber('view-top');
+    var bottom = getInputNumber('view-bottom');
+    var videoAction = getInputCheck('video-action');
+    var seek = getInputNumber('video-seek-msec');
+    var speed = getInputNumber('video-speed');
+    var message = {
+       "messageType":"placeChanged",
+       "placeChanged":{
+         "placeId":placeId,
+         "pointId":pointId < 0 ? null : pointId,
+         "itemId":itemId < 0 ? null : itemId,
+         "video":{
+           "action":videoAction ? 'PLAYING' : 'PAUSED',
+           "seekMs":seek < 0 ? null : seek,
+           "speed":speed <= 0 ? null : speed
+         }
+       },
+       "unityView":{
+         "visible":true,
+         "rect":{
+           "left":left,
+           "right":right,
+           "top":top,
+           "bottom":bottom
+         }
+       }
+    };
+    webkit.messageHandlers.native.postMessage(JSON.stringify(message));
+  }
+  
+  function sendCloseViewMessage() {
+    var message = {
+       "unityView":{
+         "visible":false
+       }
+    };
+    sendMessageToNative(message);
+  }
+  
+  function getTotalDownloadSize() {
+    var placeIds = getInputText('download-place-ids').split(",").map(str => parseInt(str));
+    var quality = document.getElementById('quality').value;
+    sendMessageToNative({
+      messageType: "totalDownloadSizeQuery",
+      totalDownloadSizeQuery: {
+        quality: quality,
+        placeIds: placeIds
+      }
+    });
+  }
+  
+  function startDownload() {
+    var placeIds = getInputText('download-place-ids').split(",").map(str => parseInt(str));
+    var quality = document.getElementById('quality').value;
+    sendMessageToNative({
+      messageType: "preDownload",
+      preDownload: {
+        quality: quality,
+        placeIds: placeIds
+      }
+    });
+  }
+  
+  function sendMessageToNative(obj) {
+    webkit.messageHandlers.native.postMessage(JSON.stringify(obj));
+  }
+  
+  function sendQueryDiskUsage() {
+    sendMessageToNative({"messageType": "diskUsage"});
+  }
+  
+  function sendQueryReservedDiskSpaceMb() {
+    sendSettingMessage("queryValue", "reservedDiskSpaceMb", null);
+  }
+  
+  function sendSetReservedDiskSpaceMb() {
+    sendSettingMessage("changeValue", "reservedDiskSpaceMb", getInputNumber("reserved-disk-space-mb"));
+  }
+  
+  function sendSettingMessage(action, key, value) {
+    var message = {
+       "messageType":"setting",
+       "setting":{
+         "action":action,
+         "key":key,
+         "value":value
+       }
+    };
+    webkit.messageHandlers.native.postMessage(JSON.stringify(message));
+  }
+  
+</script>
+<body>
+  <br/>
+  <div>
+    api server: <input type="text" id="api-server" value="https://rent.nurvecloud.com/api/v2/" class="input-text" />
+    <input type="button" value="init message" onclick="sendInitMessage();"/> 
+  </div>
+  <br/>
+  <div>
+    <input type="button" value="get disk usage" onclick="sendQueryDiskUsage()"/>
+  </div>
+  <div>
+    <input type="button" value="get reserved disk space MB" onclick="sendQueryReservedDiskSpaceMb()"/>
+  </div>
+  <div>
+    <input type="number" id="reserved-disk-space-mb" value="1024" min="0" class="input-number" /> MB
+    <input type="button" value="set reserved disk space MB" onclick="sendSetReservedDiskSpaceMb();"/> 
+  </div>
+  <div>
+    place ids: <input type="text" id="download-place-ids" value="870262,870177,859111" class="input-text" />
+    <select name="quality" id="quality">
+      <option value="original">original</option>
+      <option value="high">high</option>
+      <option value="middle">middle</option>
+      <option value="low">low</option>
+    </select>
+    <input type="button" value="get total download size" onclick="getTotalDownloadSize();"/>
+    <input type="button" value="download" onclick="startDownload();"/>
+  </div>
+  <br/>
+   <div style="background-color:lightgoldenrodyellow;">
+    Received:
+    <div id="received-message"></div>
+    <br/>
+   <div style="background-color:lightgoldenrodyellow;">
+    Received:
+    <div id="received-setting-message"></div>
+    <br/>
+  </div>
+  <br/>
+</body>
+</html>
