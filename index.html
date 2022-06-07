@@ -102,6 +102,18 @@
     });
   }
   
+  function startDownload() {
+    var placeIds = getInputText('download-place-ids').split(",").map(str => parseInt(str));
+    var quality = document.getElementById('quality').value;
+    sendMessageToNative({
+      messageType: "preDownload",
+      preDownload: {
+        quality: quality,
+        placeIds: placeIds
+      }
+    });
+  }
+  
   function sendMessageToNative(obj) {
     webkit.messageHandlers.native.postMessage(JSON.stringify(obj));
   }
@@ -156,7 +168,8 @@
       <option value="middle">middle</option>
       <option value="low">low</option>
     </select>
-    <input type="button" value="get total download size" onclick="getTotalDownloadSize();"/> 
+    <input type="button" value="get total download size" onclick="getTotalDownloadSize();"/>
+    <input type="button" value="download" onclick="startDownload();"/>
   </div>
   <br/>
    <div style="background-color:lightgoldenrodyellow;">
