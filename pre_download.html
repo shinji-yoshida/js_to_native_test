@@ -132,13 +132,13 @@
   
   function closeWebView() {
     sendMessageToNative({
-    "messageType": "_internal",
-    "_internal": {
+      "messageType": "_internal",
+      "_internal": {
         "unaryAction": {
-            "name": "quitMode"
+          "name": "quitMode"
         }
-    }
-}});
+      }
+    });
   }
   
   function sendSettingMessage(action, key, value) {
