@@ -130,6 +130,17 @@
     sendSettingMessage("changeValue", "reservedDiskSpaceMb", getInputNumber("reserved-disk-space-mb"));
   }
   
+  function closeWebView() {
+    sendMessageToNative({
+    "messageType": "_internal",
+    "_internal": {
+        "unaryAction": {
+            "name": "quitMode"
+        }
+    }
+}});
+  }
+  
   function sendSettingMessage(action, key, value) {
     var message = {
        "messageType":"setting",
@@ -170,6 +181,9 @@
     </select>
     <input type="button" value="get total download size" onclick="getTotalDownloadSize();"/>
     <input type="button" value="download" onclick="startDownload();"/>
+  </div>
+  <div>
+    <input type="button" value="閉じる" onclick="closeWebView();"/>
   </div>
   <br/>
    <div style="background-color:lightgoldenrodyellow;">
