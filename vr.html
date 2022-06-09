@@ -109,6 +109,17 @@
     webkit.messageHandlers.native.postMessage(JSON.stringify(message));
   }
   
+  function closeWebView() {
+    sendMessageToNative({
+      "messageType": "_internal",
+      "_internal": {
+        "unaryAction": {
+          "name": "quitMode"
+        }
+      }
+    });
+  }
+  
   function sendGyroModeMessage() {
     sendSettingMessage("changeValue", "cameraType", "monoGyro");
   }
@@ -172,6 +183,9 @@
   </div>
   <div>
     <input type="button" value="close view message" onclick="sendCloseViewMessage();"/> 
+  </div>
+  <div>
+    <input type="button" value="閉じる" onclick="closeWebView();"/>
   </div>
   <br/>
    <div style="background-color:lightgoldenrodyellow;">
