@@ -42,7 +42,7 @@
           "apiServer":apiServer
        }
     };
-    webkit.messageHandlers.native.postMessage(JSON.stringify(message));
+    sendMessageToNative(message);
   }
   
   function sendViewOpenMessage() {
@@ -61,7 +61,7 @@
           }
        }
     };
-    webkit.messageHandlers.native.postMessage(JSON.stringify(message));
+    sendMessageToNative(message);
   }
   
   function sendPlaceChangedMessage() {
@@ -97,7 +97,7 @@
          }
        }
     };
-    webkit.messageHandlers.native.postMessage(JSON.stringify(message));
+    sendMessageToNative(message);
   }
   
   function sendCloseViewMessage() {
@@ -106,7 +106,7 @@
          "visible":false
        }
     };
-    webkit.messageHandlers.native.postMessage(JSON.stringify(message));
+    sendMessageToNative(message);
   }
   
   function closeWebView() {
@@ -118,6 +118,10 @@
         }
       }
     });
+  }
+  
+  function sendMessageToNative(obj){
+    webkit.messageHandlers.native.postMessage(JSON.stringify(obj));
   }
   
   function sendGyroModeMessage() {
