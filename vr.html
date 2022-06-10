@@ -112,12 +112,7 @@
   
   function closeWebView() {
     sendMessageToNative({
-      "messageType": "_internal",
-      "_internal": {
-        "unaryAction": {
-          "name": "quitMode"
-        }
-      }
+      "messageType": "closeWebView"
     });
   }
   
