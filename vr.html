@@ -101,6 +101,24 @@
     sendMessageToNative(message);
   }
   
+  function sendGetVolumeMessage() {
+    var message = {
+       "messageType":"getVolume"
+    };
+    sendMessageToNative(message);
+  }
+  
+  function sendSetVolumeMessage() {
+        var volume = getInputNumber('volume');
+    var message = {
+      "messageType":"setVolume",
+      "setVolume":{
+        "video":volume
+      }
+    };
+    sendMessageToNative(message);
+  }
+  
   function sendCloseViewMessage() {
     var message = {
        "unityView":{
@@ -172,6 +190,11 @@
     seek: <input type="number" id="video-seek-msec" value="0" class="input-number" />
     speed: <input type="number" id="video-speed" value="-1" class="input-number" />
     <input type="button" value="placeChanged message" onclick="sendPlaceChangedMessage();"/> 
+  </div>
+  <div>
+    place id: <input type="number" id="volume" value="1.0" class="input-number" />
+    <input type="button" value="setVolume" onclick="sendSetVolumeMessage();"/>
+    <input type="button" value="getVolume" onclick="sendGetVolumeMessage();"/>
   </div>
   <div>
     <input type="button" value="gyro mode" onclick="sendGyroModeMessage();"/> 
