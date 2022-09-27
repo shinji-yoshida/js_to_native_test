@@ -181,8 +181,32 @@
     sendIosSpecificMessage({"messageType":"startCheckingSilentMode"});
   }
   
+  function sendWebRTCSetup(){
+    var apiKey = getInputText('web-rtc-api-key');
+    var sessionId = getInputText('web-rtc-session-id');
+    var token = getInputText('web-rtc-token');
+    sendWebRTCMessage({
+      "messageType":"setup",
+      "setup":{
+        "apiKey":apiKey,
+        "sessionId":sessionId,
+        "token":token
+      }
+    });
+  }
+  
+  function sendWebRTCConnect(){
+    sendWebRTCMessage({
+      "messageType":"connect"
+    });
+  }
+  
   function sendIosSpecificMessage(obj){
     webkit.messageHandlers.iosSpecific.postMessage(JSON.stringify(obj));
+  }
+  
+  function sendWebRTCMessage(obj){
+    webkit.messageHandlers.webRTC.postMessage(JSON.stringify(obj));
   }
   
 </script>
@@ -231,6 +255,13 @@
   </div>
   <div>
     <input type="button" value="close view message" onclick="sendCloseViewMessage();"/> 
+  </div>
+  <div>
+    webRTC apiKey: <input type="text" id="web-rtc-api-key" class="input-text" />
+    webRTC sessionId: <input type="text" id="web-rtc-session-id" class="input-text" />
+    webRTC token: <input type="text" id="web-rtc-token" class="input-text" />
+    <input type="button" value="webRTC setup" onclick="sendWebRTCSetup();"/> 
+    <input type="button" value="connect" onclick="sendWebRTCConnect();"/> 
   </div>
   <div>
     <input type="button" value="閉じる" onclick="closeWebView();"/>
