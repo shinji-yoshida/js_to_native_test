@@ -135,7 +135,7 @@
   }
   
   function sendMessageToNative(obj){
-    if(webkit?.messageHandlers?.native)
+    if(window.webkit?.messageHandlers?.native)
       webkit.messageHandlers.native.postMessage(JSON.stringify(obj));
     else
       androidNativeInterface.postMessage(JSON.stringify(obj));
