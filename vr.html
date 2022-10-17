@@ -135,7 +135,10 @@
   }
   
   function sendMessageToNative(obj){
-    webkit.messageHandlers.native.postMessage(JSON.stringify(obj));
+    if(webkit?.messageHandlers?.native)
+      webkit.messageHandlers.native.postMessage(JSON.stringify(obj));
+    else
+      androidNativeInterface..postMessage(JSON.stringify(obj));
   }
   
   function sendGyroModeMessage() {
@@ -163,7 +166,7 @@
          "value":value
        }
     };
-    webkit.messageHandlers.native.postMessage(JSON.stringify(message));
+    sendMessageToNative(message);
   }
   
   function sendSaveImageMessage(){
