@@ -138,7 +138,7 @@
     if(webkit?.messageHandlers?.native)
       webkit.messageHandlers.native.postMessage(JSON.stringify(obj));
     else
-      androidNativeInterface..postMessage(JSON.stringify(obj));
+      androidNativeInterface.postMessage(JSON.stringify(obj));
   }
   
   function sendGyroModeMessage() {
