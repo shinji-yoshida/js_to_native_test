@@ -108,7 +108,7 @@
     var quality = document.getElementById('quality').value;
     sendMessageToNative({
       messageType: "isPlacesFetched",
-      totalDownloadSizeQuery: {
+      isPlacesFetched: {
         quality: quality,
         placeIds: placeIds
       }
