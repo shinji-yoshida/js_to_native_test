@@ -103,6 +103,18 @@
     });
   }
   
+  function isPlacesFetched() {
+    var placeIds = getInputText('download-place-ids').split(",").map(str => parseInt(str));
+    var quality = document.getElementById('quality').value;
+    sendMessageToNative({
+      messageType: "isPlacesFetched",
+      totalDownloadSizeQuery: {
+        quality: quality,
+        placeIds: placeIds
+      }
+    });
+  }
+  
   function startDownload() {
     var placeIds = getInputText('download-place-ids').split(",").map(str => parseInt(str));
     var quality = document.getElementById('quality').value;
@@ -176,6 +188,7 @@
       <option value="low">low</option>
     </select>
     <input type="button" value="get total download size" onclick="getTotalDownloadSize();"/>
+    <input type="button" value="check places fetched" onclick="isPlacesFetched();"/>
     <input type="button" value="download" onclick="startDownload();"/>
   </div>
   <div>
