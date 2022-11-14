@@ -1,0 +1,10 @@
+  [{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "jp.nurve.cloud.app.nativepanobrowser",
+      "sha256_cert_fingerprints":
+      ["90:03:35:C8:18:70:EA:67:BC:49:61:73:B8:D6:EC:50:68:1E:D5:CE:C5:68:65:4A:1A:DC:51:09:75:DC:4F:94"]
+    }
+  }]
+  
