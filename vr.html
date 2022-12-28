@@ -134,6 +134,20 @@
     });
   }
   
+  function sendCheckOpenUrlRequestMessage() {
+    var message = {
+       "messageType":"checkOpenUrlRequest"
+    };
+    sendMessageToNative(message);
+  }
+  
+  function sendConsumeOpenUrlRequestMessage() {
+    var message = {
+       "messageType":"consumeOpenUrlRequest"
+    };
+    sendMessageToNative(message);
+  }
+  
   function sendMessageToNative(obj){
     if(window.webkit?.messageHandlers?.native)
       webkit.messageHandlers.native.postMessage(JSON.stringify(obj));
@@ -255,6 +269,10 @@
   </div>
   <div>
     <input type="button" value="消音モードのチェック" onclick="sendStartCheckingSilentMode();"/> 
+  </div>
+  <div>
+    <input type="button" value="check OpenUrlRequest" onclick="sendCheckOpenUrlRequestMessage();"/> 
+    <input type="button" value="consume OpenUrlRequest" onclick="sendConsumeOpenUrlRequestMessage();"/> 
   </div>
   <div>
     <input type="button" value="close view message" onclick="sendCloseViewMessage();"/> 
