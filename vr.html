@@ -159,6 +159,10 @@
     sendSettingMessage("changeValue", "cameraType", "monoGyro");
   }
   
+  function sendStereoGyroModeMessage() {
+    sendSettingMessage("changeValue", "cameraType", "stereoGyro");
+  }
+  
   function sendSwipeModeMessage() {
     sendSettingMessage("changeValue", "cameraType", "swipe");
   }
@@ -258,6 +262,7 @@
   </div>
   <div>
     <input type="button" value="gyro mode" onclick="sendGyroModeMessage();"/> 
+    <input type="button" value="stereo gyro mode" onclick="sendStereoGyroModeMessage();"/> 
     <input type="button" value="swipe mode" onclick="sendSwipeModeMessage();"/> 
   </div>
   <div>
