@@ -148,6 +148,16 @@
     sendMessageToNative(message);
   }
   
+  function sendOpenBrowserMessage() {
+    var message = {
+      "messageType":"openBrowser",
+      "openBrowser": {
+        "url":"https://ubiquitous-cajeta-584b4a.netlify.app/pre_download"
+      }
+    };
+    sendMessageToNative(message);
+  }
+  
   function sendMessageToNative(obj){
     if(window.webkit?.messageHandlers?.native)
       webkit.messageHandlers.native.postMessage(JSON.stringify(obj));
@@ -278,6 +288,9 @@
   <div>
     <input type="button" value="check OpenUrlRequest" onclick="sendCheckOpenUrlRequestMessage();"/> 
     <input type="button" value="consume OpenUrlRequest" onclick="sendConsumeOpenUrlRequestMessage();"/> 
+  </div>
+  <div>
+    <input type="button" value="open browser" onclick="sendOpenBrowserMessage();"/> 
   </div>
   <div>
     <input type="button" value="close view message" onclick="sendCloseViewMessage();"/> 
