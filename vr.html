@@ -189,6 +189,10 @@
     sendSettingMessage("queryValue", "gyroSupported", null);
   }
   
+  function sendGetExternalDisplayExistsMessage() {
+    sendSettingMessage("queryValue", "externalDisplayExists", null);
+  }
+  
   function sendSettingMessage(action, key, value) {
     var message = {
        "messageType":"setting",
@@ -291,6 +295,9 @@
   </div>
   <div>
     <input type="button" value="消音モードのチェック" onclick="sendStartCheckingSilentMode();"/> 
+  </div>
+  <div>
+    <input type="button" value="外部ディスプレイのチェック" onclick="sendGetExternalDisplayExistsMessage();"/> 
   </div>
   <div>
     <input type="button" value="check OpenUrlRequest" onclick="sendCheckOpenUrlRequestMessage();"/> 
